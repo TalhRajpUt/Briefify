@@ -21,19 +21,27 @@ import 'package:briefify/screens/posts_by_category_screen.dart';
 import 'package:briefify/screens/profile_verification_screen.dart';
 import 'package:briefify/screens/register_screen.dart';
 import 'package:briefify/screens/replies_screen.dart';
+import 'package:briefify/screens/show_user_img.dart';
 import 'package:briefify/screens/show_user_screen.dart';
 import 'package:briefify/screens/splash_screen.dart';
+import 'package:briefify/screens/term_and_condition.dart';
 import 'package:briefify/screens/update_profile_screen.dart';
 import 'package:briefify/screens/webview_screen.dart';
 import 'package:briefify/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'data/routes.dart';
 import 'models/edit_post_argument.dart';
 import 'models/route_argument.dart';
 import 'screens/play_youtube_screen.dart';
+
+// Errors in C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_quill-3.9.9\lib\src\widgets\raw_editor.dart
+// // ihavecommented TextEditingActionTarget,
+// // ihavecommented super.copySelection(cause);
+// // ihavecommented super.cutSelection(cause);
+// ihavecommented super.pasteText(cause);
+// ihavecommented super.selectAll(cause);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,15 +85,17 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const ImgScreen());
           }
           // Profile Picture Display Route
-          // if (settings.name == ProfileeImgScreen) {
-          //   return MaterialPageRoute(builder: (context) => const ProfileImgScreen());
-          // }
+
+          if (settings.name == ProfileeImgScreen) {
+            return MaterialPageRoute(builder: (context) => const ProfileImgScreen());
+          }
+
           // Other User Cover Picture Display Route
-          if (settings.name == OtherUserImgScreen) {
+          if (settings.name == OtherUserCoverImg) {
             final results = settings.arguments as Map;
-            var user = results['user'];
-            return MaterialPageRoute(builder: (context) => ShowOtherUserProfile(
-                user: user,
+            var modelSendToshowimg = results['user'];
+            return MaterialPageRoute(builder: (context) => ShowOtherUserCoverPhoto(
+                user: modelSendToshowimg,
             )
             );
           }
@@ -93,7 +103,7 @@ class MyApp extends StatelessWidget {
           if (settings.name == OtherUserProfileImg) {
             final results = settings.arguments as Map;
             var user = results['user'];
-            return MaterialPageRoute(builder: (context) => OtherUserProfileImgScreen(
+            return MaterialPageRoute(builder: (context) => OtherUserProfilePhoto(
               user: user,
             )
             );
@@ -102,6 +112,12 @@ class MyApp extends StatelessWidget {
           if (settings.name == registerRoute) {
             return MaterialPageRoute(
                 builder: (context) => const RegisterScreen());
+          }
+
+          /// Term & Condition Route
+          if (settings.name == termandconditionRoute) {
+            return MaterialPageRoute(
+                builder: (context) => const TermAndConditionScreen());
           }
 
           /// Forgot Password Route
@@ -215,7 +231,9 @@ class MyApp extends StatelessWidget {
             final results = settings.arguments as Map;
             UserModel user = results['user'];
             return MaterialPageRoute(
-                builder: (context) => ShowUserScreen(user: user));
+                builder: (context) => ShowUserScreen(
+                    user: user,
+                ));
           }
 
           /// Followers Route

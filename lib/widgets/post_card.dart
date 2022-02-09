@@ -85,7 +85,6 @@ class PostCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(200),
                       child: FadeInImage(
-                        // Todo Here is other user image on card
                         placeholder: const AssetImage(userAvatar),
                         image: NetworkImage(post.user.image),
                         fit: BoxFit.cover,
@@ -498,14 +497,7 @@ class PostCard extends StatelessWidget {
                   myUser.id == post.user.id?
                   GestureDetector(
                     onTap: () async {
-                      //Todo Here Edit Post
                       print('From here we navigate after printing values 1');
-                      // print(userId);
-                      // print(postId);
-                      // print(heading);
-                      // print(summary);
-                      // print(videolink);
-                      // print(ariclelink);
                       print(category);
                       print('From here we navigate after printing values 2');
                       Navigator.pushNamed(

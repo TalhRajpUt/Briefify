@@ -157,7 +157,7 @@ class _OTPScreenState extends State<OTPScreen> {
         phoneNumber: widget.phoneNumber,
         timeout: Duration(seconds: 100),
         verificationCompleted: (AuthCredential authCredential) {
-          print('OK' + authCredential.toString()); //TODO remove
+          print('OK' + authCredential.toString());
           setState(() {
             _loading = false;
           });

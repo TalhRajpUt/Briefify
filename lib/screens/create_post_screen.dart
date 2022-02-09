@@ -144,7 +144,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 showImageButton: false,
                                 showVideoButton: false,
                                 showCameraButton: false,
-                                showHistory: false,
+                                // showHistory: false,
+                                // Todo Here i have made changes for Error
                               ),
                               Container(
                                 height: 150,

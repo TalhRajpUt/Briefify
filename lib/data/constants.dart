@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kPrimaryColorLight = Color(0xFF1a99f6);
+const CheckBoxDisableColor = Color(0x34D3D3D3);
 const kPrimaryColorDark = Color(0xff1165a3);
 const kSecondaryColorLight = Color(0xFF1d2d4c);
 const kSecondaryColorDark = Color(0xFF202843);

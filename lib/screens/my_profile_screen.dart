@@ -217,8 +217,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 // From Here below are Users Posts
                 const SizedBox(height: 10),
 
-                // Todo here for Edit Post
-
                 Expanded(
                   child: ListView.builder(
                     controller: _pageScrollController,

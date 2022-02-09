@@ -191,7 +191,8 @@ class _EditPostScreenState extends State<EditPostScreen> {
                       showImageButton: false,
                       showVideoButton: false,
                       showCameraButton: false,
-                      showHistory: false,
+                      // showHistory: false,
+                      // Todo Here i have made changes for Error
                     ),
                     Container(
                       height: 150,
@@ -278,7 +279,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
                               if (validData()) {
                                 updatePost();
                               }
-                              // Todo Behind This Button For Edit Post
                               // print(jsonDecode(encodedSummary));
                             },
                             padding: const EdgeInsets.symmetric(

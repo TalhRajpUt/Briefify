@@ -85,8 +85,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 GestureDetector(
                     onTap: () async {
                       Navigator.pushNamed(context, ProfileeImgScreen);
-
-                      // Todo Her is Update Profile 1
                     },
                     child: Badge(
                       badgeColor: kPrimaryColorLight,

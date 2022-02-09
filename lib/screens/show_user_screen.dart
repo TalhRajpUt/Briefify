@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
-
 import 'package:badges/badges.dart';
 import 'package:briefify/data/constants.dart';
 import 'package:briefify/data/image_paths.dart';
@@ -10,9 +8,9 @@ import 'package:briefify/data/urls.dart';
 import 'package:briefify/helpers/network_helper.dart';
 import 'package:briefify/models/post_model.dart';
 import 'package:briefify/models/user_model.dart';
-import 'package:briefify/providers/home_posts_provider.dart';
 import 'package:briefify/providers/user_provider.dart';
 import 'package:briefify/widgets/post_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,14 +20,17 @@ import 'package:provider/provider.dart';
 class ShowUserScreen extends StatefulWidget {
   final UserModel user;
 
-  const ShowUserScreen({Key? key, required this.user}) : super(key: key);
+
+  const ShowUserScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   _ShowUserScreenState createState() => _ShowUserScreenState();
 }
 
 class _ShowUserScreenState extends State<ShowUserScreen> {
-  late bool b;
   bool _loading = false;
   bool playaudio=true;
   bool _error = false;
@@ -51,7 +52,6 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
   @override
   Widget build(BuildContext context) {
     /// Posts provider
-    final _postsData = Provider.of<HomePostsProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -64,9 +64,9 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        var a = widget.user;
-                        Navigator.pushNamed(context, OtherUserImgScreen,
-                        arguments: {'user': a}
+                        var modelSendToshowimg = widget.user;
+                        Navigator.pushNamed(context, OtherUserCoverImg,
+                        arguments: {'user': modelSendToshowimg}
                         );
                       },
                       child: FadeInImage(
@@ -235,12 +235,16 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
                         '  Lives in ',
                         style: TextStyle(fontSize: 13),
                       ),
-                      Text(
-                        widget.user.city,
-                        style: const TextStyle(
-                          color: kPrimaryTextColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          widget.user.city,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: kPrimaryTextColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],
@@ -259,12 +263,16 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
                         '  Qualification ',
                         style: TextStyle(fontSize: 13),
                       ),
-                      Text(
-                        widget.user.qualification,
-                        style: const TextStyle(
-                          color: kPrimaryTextColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          widget.user.qualification,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: kPrimaryTextColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],
@@ -283,12 +291,16 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
                         '  Occupation ',
                         style: TextStyle(fontSize: 13),
                       ),
-                      Text(
-                        widget.user.occupation,
-                        style: const TextStyle(
-                          color: kPrimaryTextColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          widget.user.occupation,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: kPrimaryTextColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],
@@ -420,92 +432,8 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
       playaudio = true;
     } else {
       playaudio = false;
-      var result = await flutterTts.speak(text);
     }
   }
 }
 
-class ShowOtherUserProfile extends StatefulWidget {
-  final UserModel user;
-  // Image coverImageofUser1;
-  // final int UserId;
-  ShowOtherUserProfile({
-    Key? key,
-    required this.user,
-    // required this.coverImageofUser1,
-    // required this.UserId,
-  }) : super(key: key);
-
-  @override
-  State<ShowOtherUserProfile> createState() => _ShowOtherUserProfileState();
-}
-
-class _ShowOtherUserProfileState extends State<ShowOtherUserProfile> {
-  @override
-  void initState() {
-    var a = widget.user.id;
-    print('user from Modedl');
-    print(a);
-    // print(a);
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Image(
-              image: NetworkImage(
-                  widget.user.cover,
-              ),
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class OtherUserProfileImgScreen extends StatefulWidget {
-  final UserModel user;
-  const OtherUserProfileImgScreen({Key? key,required this.user,}) : super(key: key);
-
-  @override
-  _OtherUserProfileImgScreenState createState() => _OtherUserProfileImgScreenState();
-}
-
-class _OtherUserProfileImgScreenState extends State<OtherUserProfileImgScreen> {
-  @override
-  void initState() {
-    var a = widget.user.id;
-    print('user from Modedl');
-    print(a);
-    // print(a);
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Image(
-              image: NetworkImage(
-                widget.user.image,
-              ),
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 

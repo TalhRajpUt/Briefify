@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 ButtonOne(
                   onPressed: () {
-                    Navigator.pushNamed(context, registerRoute);
+                    Navigator.pushNamed(context, termandconditionRoute);
                   },
                   title: 'Create account',
                   minSize: 30,
