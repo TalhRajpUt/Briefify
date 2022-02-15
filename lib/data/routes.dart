@@ -23,3 +23,4 @@ const String ImgeScreen = "/imageroute";
 const String ProfileeImgScreen = "/profileimageroute";
 const String OtherUserCoverImg = "/otherusercoverimageroute";
 const String OtherUserProfileImg = "/otheruserprofileimageroute";
+const String reportUserRoute = '/ReportUser';

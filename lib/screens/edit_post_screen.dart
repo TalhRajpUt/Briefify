@@ -64,15 +64,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
     String ariclelink = widget.ariclelink;
     // String category = widget.category;
 
-    print('Here We Are On edit Post Screen print start');
-    print(postId);
-    print(userId);
-    print(heading);
-    print(summary);
-    print(videolink);
-    print(ariclelink);
-    print('Here We Are On edit Post Screen print end');
-
     getCategories();
     setState(() {
       _headingController.text = heading;
@@ -308,9 +299,11 @@ class _EditPostScreenState extends State<EditPostScreen> {
                         Icons.arrow_back_outlined,
                         color: Colors.white,
                       )),
-                )),
+                )
+            ),
           ],
-        ));
+        )
+    );
   }
 
   List<DropdownMenuItem<String>> getDropDownCategories() {

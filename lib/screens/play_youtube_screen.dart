@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../data/constants.dart';
+import '../data/image_paths.dart';
 
 class PlayYTVideo extends StatefulWidget {
   String url;
@@ -59,47 +63,49 @@ class _PlayYTVideoState extends State<PlayYTVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        // appBar: AppBar(
-        //   title: Align(
-        //     alignment: Alignment.centerLeft,
-        //       child: Text('Briefify Video')),
-        //   leading: IconButton(
-        //       icon: Icon(Icons.arrow_back),
-        //       onPressed: () {
-        //         Navigator.pop(context);
-        //       }),
-        // ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-          Text(
-            'Briefify Video',
-            style: TextStyle(
-              color: Colors.blueAccent,
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Container(
+              color: Colors.black,
+              child: Center(
+                child: YoutubePlayer(
+                  controller: _controller,
+                  aspectRatio: 100 / 100,
+                  showVideoProgressIndicator: true,
+                  progressColors: ProgressBarColors(
+                    playedColor: Colors.white,
+                    handleColor: Colors.white,
+                  ),
+                  onReady: () {
+                    _controller.addListener(listener);
+                  },
+                ),
+              ),
             ),
           ),
-
-          SizedBox(height: 50,),
-
-          Center(
-            child: YoutubePlayer(
-              controller: _controller,
-              aspectRatio: 100 / 100,
-              showVideoProgressIndicator: true,
-              progressColors: ProgressBarColors(
-                playedColor: Colors.white,
-                handleColor: Colors.white,
-              ),
-              onReady: () {
-                _controller.addListener(listener);
-              },
-            ),
+          Positioned(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    margin:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 15),
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColorLight,
+                      borderRadius: BorderRadius.circular(200),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_outlined,
+                      color: Colors.white,
+                    )),
+              )
           ),
         ],
-        ));
+      ),
+    );
   }
 }
 

@@ -184,13 +184,24 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text(
-                                      'Select PDF File',
-                                      style: TextStyle(
-                                        color: kSecondaryColorDark,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
+                                    Column(
+                                      children: const [
+                                        Text(
+                                          'Select File',
+                                          style: TextStyle(
+                                            color: kSecondaryColorDark,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          'jpeg,pdf and word accepted',
+                                          style: TextStyle(
+                                            color: kSecondaryColorDark,
+                                            fontSize: 7,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     GestureDetector(
                                       onTap: () async {

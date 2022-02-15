@@ -21,6 +21,7 @@ import 'package:briefify/screens/posts_by_category_screen.dart';
 import 'package:briefify/screens/profile_verification_screen.dart';
 import 'package:briefify/screens/register_screen.dart';
 import 'package:briefify/screens/replies_screen.dart';
+import 'package:briefify/screens/report_user.dart';
 import 'package:briefify/screens/show_user_img.dart';
 import 'package:briefify/screens/show_user_screen.dart';
 import 'package:briefify/screens/splash_screen.dart';
@@ -268,6 +269,12 @@ class MyApp extends StatelessWidget {
             String url = results.url ?? " ";
             return MaterialPageRoute(
                 builder: (context) => PlayYTVideo(url: url));
+          }
+
+          // Report User Route
+          if (settings.name == reportUserRoute) {
+            return MaterialPageRoute(builder: (context) => ReportUser()
+            );
           }
 
           /// No route found
