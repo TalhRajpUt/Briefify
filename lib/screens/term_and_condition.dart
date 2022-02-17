@@ -174,7 +174,7 @@ class _TermAndConditionScreenState extends State<TermAndConditionScreen> {
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                   child: Column(children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Material(
                           child: Checkbox(

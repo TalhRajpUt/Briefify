@@ -217,17 +217,23 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   void speak(String text) async {
-    print('nnn');
+    print('speaking');
     FlutterTts flutterTts = FlutterTts();
     if (Platform.isIOS) {
-      await flutterTts.setSharedInstance(true);
+      if (playaudio == false) {
+        await flutterTts.stop();
+        playaudio = true;
+      } else {
+        playaudio = false;
+        await flutterTts.setSharedInstance(true);
+      }
     }
     if (playaudio == false) {
       await flutterTts.stop();
       playaudio = true;
     } else {
       playaudio = false;
-      var result = await flutterTts.speak(text);
+      await flutterTts.speak(text);
     }
   }
 }

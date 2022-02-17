@@ -12,10 +12,11 @@ const uUnfollowUser = uBaseURL + 'unfollow/user';
 const uGetVerificationStatus = uBaseURL + 'check/badge/request';
 const uRequestVerification = uBaseURL + 'user/badge/request';
 const uSearchPost = uBaseURL + 'post/search';
-
 /// Posts url
 const uCreatePost = uBaseURL + 'post/create';
 const uEditPost = uBaseURL + 'post/update';
+const uReportPost = uBaseURL + 'post/report';
+const uBlockPost = uBaseURL + 'user/block';
 const uLikePost = uBaseURL + 'post/like';
 const uUnlikePost = uBaseURL + 'post/unlike';
 const uDislikePost = uBaseURL + 'dislike/post';

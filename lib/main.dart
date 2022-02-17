@@ -273,7 +273,13 @@ class MyApp extends StatelessWidget {
 
           // Report User Route
           if (settings.name == reportUserRoute) {
-            return MaterialPageRoute(builder: (context) => ReportUser()
+          final results = settings.arguments as Map;
+          final int postid = results['postid'];
+          final int postuserid = results['userid'];
+            return MaterialPageRoute(builder: (context) => ReportUser(
+                postid: postid,
+                userid: postuserid,
+            )
             );
           }
 

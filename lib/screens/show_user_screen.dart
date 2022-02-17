@@ -43,7 +43,12 @@ class _ShowUserScreenState extends State<ShowUserScreen> {
   @override
   void initState() {
     print('Show user screen');
-    print(widget.user.id.toString());
+    // print(widget.user.name.toString());
+    // print(widget.user.dob.toString());
+    // print(widget.user.phone.toString());
+    // print(widget.user.email.toString());
+    // print(widget.user.occupation);
+    // print(widget.user.qualification.toString());
     getHomePosts();
     setScrollControllerListener();
     super.initState();

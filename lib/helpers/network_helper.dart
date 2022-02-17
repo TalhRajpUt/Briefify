@@ -664,6 +664,118 @@ class NetworkHelper {
     }
   }
 
+  //Report User is Done Here
+  Future<Map> blockUser(
+      int whomblocked,
+      int whoblocked,
+      ) async {
+    try {
+      final String apiToken = await Prefs().getApiToken();
+      var request = MultipartRequest('POST', Uri.parse(uBlockPost));// here change
+      request.fields.addAll({
+        'api_token': apiToken,
+        'whomblocked': whomblocked.toString(),
+        'whoblocked': whoblocked.toString(),
+      });
+      print('Sending request');
+      StreamedResponse streamedResponse = await request.send();
+
+      if (streamedResponse.statusCode == 200) {
+        var response = await streamedResponse.stream.bytesToString();
+
+        print('Response: $response');
+
+        var decodedResponse = jsonDecode(response);
+        if (!decodedResponse['error']) {
+          /// Good to go
+          var decodedPost = decodedResponse['post'];
+          return {
+            'error': false,
+            'post': decodedPost != null ? PostModel.fromJson(decodedPost) : null,
+          };
+        } else {
+          return {
+            'error': true,
+            'errorData': decodedResponse['error_data'].toString(),
+          };
+        }
+      } else {
+        return {
+          'error': true,
+          'errorData': streamedResponse.statusCode == 500
+              ? 'Server error : Please try again after a while'
+              : streamedResponse.statusCode == 404
+              ? 'Invalid Request : Not Found'
+              : 'Connection error : Please try again after a while',
+        };
+      }
+    } catch (e) {
+      return {
+        'error': true,
+        'errorData': e.toString(),
+      };
+    }
+  }
+  //Block User is Done Here
+
+  //Report User is Done Here
+  Future<Map> reportUser(
+      String description,
+      String selectedvalue,
+      int userid,
+      int postid,
+      ) async {
+    try {
+      final String apiToken = await Prefs().getApiToken();
+      var request = MultipartRequest('POST', Uri.parse(uReportPost));// here change
+      request.fields.addAll({
+        'api_token': apiToken,
+        'description': description,
+        'title': selectedvalue,
+        'user_id': userid.toString(),
+        'post_id': postid.toString(),
+      });
+      print('Sending request');
+      StreamedResponse streamedResponse = await request.send();
+
+      if (streamedResponse.statusCode == 200) {
+        var response = await streamedResponse.stream.bytesToString();
+
+        print('Response: $response');
+
+        var decodedResponse = jsonDecode(response);
+        if (!decodedResponse['error']) {
+          /// Good to go
+          var decodedPost = decodedResponse['post'];
+          return {
+            'error': false,
+            'post': decodedPost != null ? PostModel.fromJson(decodedPost) : null,
+          };
+        } else {
+          return {
+            'error': true,
+            'errorData': decodedResponse['error_data'].toString(),
+          };
+        }
+      } else {
+        return {
+          'error': true,
+          'errorData': streamedResponse.statusCode == 500
+              ? 'Server error : Please try again after a while'
+              : streamedResponse.statusCode == 404
+              ? 'Invalid Request : Not Found'
+              : 'Connection error : Please try again after a while',
+        };
+      }
+    } catch (e) {
+      return {
+        'error': true,
+        'errorData': e.toString(),
+      };
+    }
+  }
+  //Report User is Done Here
+
   //Edit Post is Done Here
   Future<Map> editPost(
       String categoryID,

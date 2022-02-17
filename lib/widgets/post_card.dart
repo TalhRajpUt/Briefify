@@ -18,6 +18,8 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../helpers/snack_helper.dart';
+
 class PostCard extends StatefulWidget {
   final PostModel post;
   final VoidCallback? deletePost;
@@ -38,6 +40,10 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var result1;
+  late int whoblocked;
+  late int whomblocked;
+  bool _loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -165,10 +171,18 @@ class _PostCardState extends State<PostCard> {
                             result1 =
                                 newValue;
                             if (result1 == 0) {
-                              Navigator.pushNamed(context, reportUserRoute);
+                              whoblocked = myUser.id;
+                              whomblocked = widget.post.user.id;
+                              if (validData()) {
+                                updatePost();
+                              };
                             }
                             if (result1 == 1) {
-                              Navigator.pushNamed(context, reportUserRoute);
+                              Navigator.pushNamed(context, reportUserRoute,
+                                  arguments: {
+                                    'postid': widget.post.id,
+                                    'userid': myUser.id,
+                                  });
                             }
                             // it gives the value which is selected
                           });
@@ -180,7 +194,7 @@ class _PostCardState extends State<PostCard> {
                           ),
                           const PopupMenuItem(
                             value: 1,
-                            child: Text('Report'),
+                            child: Text('Report Post'),
                           ),
                         ],
                       ),
@@ -600,6 +614,48 @@ class _PostCardState extends State<PostCard> {
         ),
       ),
     );
+  }
+  // Block Validation
+  bool validData() {
+    if (whoblocked=='') {
+      SnackBarHelper.showSnackBarWithoutAction(context,
+          message: 'Try Again');
+      return false;
+    }
+    if (whomblocked=='') {
+      SnackBarHelper.showSnackBarWithoutAction(context,
+          message: 'Try Again');
+      return false;
+    }
+    return true;
+  }
+
+  // Send Data To DataBase For Blocking User
+  void updatePost() async {
+    setState(() {
+      _loading = true;
+    });
+    try{
+      Map results = await NetworkHelper().blockUser(
+        whoblocked,
+        whomblocked,
+      );
+      if (!results['error']) {
+        SnackBarHelper.showSnackBarWithoutAction(context, message: 'User Blocked');
+        // Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(context, homeRoute, (route) => false);
+      } else {
+        SnackBarHelper.showSnackBarWithoutAction(context,
+            message: results['errorData']);
+      }
+
+    } catch(e) {
+      SnackBarHelper.showSnackBarWithoutAction(context, message: e.toString());
+
+    }
+    setState(() {
+      _loading = false;
+    });
   }
 
   void _launchURL(String url) async {
